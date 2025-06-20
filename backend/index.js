@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes setup
 app.use('/api', todoRouter)
+app.get('/', ()=>console.log("api is working"))
 app.listen(process.env.PORT || 3000, () => {
     console.log('server is listening');
     
