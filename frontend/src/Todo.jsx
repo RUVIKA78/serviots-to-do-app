@@ -33,7 +33,7 @@ const Todo = () => {
     const fetchTasks = async () => {
         try {
             const response = await axios.get('http://localhost:4000/api/tasks');
-
+            
             setTodos(response.data.data);
         } catch (error) {
             console.log(error);
@@ -49,8 +49,10 @@ const Todo = () => {
             { todoName, isCompleted: false }
         )
 
+        console.log(response.data);
+        
 
-        setTodos([...todos, response.data.data])
+        setTodos([...todos, response.data])
         setToDoName('');
         // fetchTasks();
 
@@ -99,10 +101,10 @@ const Todo = () => {
             <div className='flex flex-col justify-center items-center bg-slate-100 px-5 py-10 rounded-3xl shadow-black-300 shadow-xl'>
                 <h1 className='mt-4 mb-8 text-2xl lg:text-5xl font-medium text-center'>This is a To Do App</h1>
                 <div>
-                    <form className='sm:flex items-center gap-2'>
+                    <form  onSubmit={(e) => addTask(e)}  className='sm:flex items-center gap-2'>
                         <input className='text-2xl rounded-3xl outline-none border-2 border-blue-600 px-2 py-1' type="text" value={todoName} onChange={(e) => setToDoName(e.target.value)} name='todoName' placeholder='write here..' />
                         <div className='flex justify-center mt-3 sm:mt-0 sm:flex gap-2'>
-                        <button className='px-3 py-1 bg-blue-600 rounded-full font-semibold text-white' type='submit' onSubmit={(e) => addTask(e)} ><FaPlus /></button>
+                        <button className='px-3 py-1 bg-blue-600 rounded-full font-semibold text-white' type='submit' ><FaPlus /></button>
                         <button
                             className='px-3 py-1 bg-blue-600 rounded-full font-semibold text-white'
                             type='submit'

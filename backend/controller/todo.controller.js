@@ -3,7 +3,7 @@ import ToDo from "../models/todo.model.js";
 const fetchTask = async (req, res) => {
     try {
         const data = await ToDo.find().sort({ createdAt: -1 });
-        console.log(data);
+        // console.log(data);
 
         return res.status(200).json({ success: true, message: "all todos", data });
 
