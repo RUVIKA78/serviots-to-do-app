@@ -12,6 +12,8 @@ const Todo = () => {
     const [editing, setEditing] = useState(null);
     const [editedTodo, setEditedTodo] = useState('');
     const [query, setQuery] = useState('');
+
+    const backendUrl=import.meta.env.VITE_BACKEND_URL
     
     
 
@@ -21,7 +23,7 @@ const Todo = () => {
 
     const togglecheckBox = async (id, isCompleted) => {
         try {
-            const { data } = await axios.put(`http://localhost:4000/api/tasks/${id}`, {
+            const { data } = await axios.put(`${backendUrl}/tasks/${id}`, {
                 isCompleted: !isCompleted, // Toggle completion status
             });
             setTodos(todos.map(todo => (todo._id === id ? { ...todo, isCompleted: !isCompleted } : todo)));
@@ -32,7 +34,7 @@ const Todo = () => {
 
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/api/tasks');
+            const response = await axios.get(`${backendUrl}/tasks`);
             
             setTodos(response.data.data);
         } catch (error) {
@@ -44,7 +46,7 @@ const Todo = () => {
         e.preventDefault();
         if (todoName.length === 0) return;
 
-        const response = await axios.post('http://localhost:4000/api/tasks',
+        const response = await axios.post(`${backendUrl}/tasks`,
 
             { todoName, isCompleted: false }
         )
@@ -59,7 +61,7 @@ const Todo = () => {
 
     }
     const updateTask = async (id) => {
-        const { data } = await axios.put(`http://localhost:4000/api/tasks/${id}`, {
+        const { data } = await axios.put(`${backendUrl}/tasks/${id}`, {
             id,
             todoName: editedTodo,
         });
@@ -70,7 +72,7 @@ const Todo = () => {
         return data;
     }
     const deleteTask = async (id) => {
-        await axios.delete(`http://localhost:4000/api/tasks/${id}`);
+        await axios.delete(`${backendUrl}/tasks/${id}`);
         setTodos(todos.filter((todo) => todo._id !== id));
     }
 
@@ -81,7 +83,7 @@ const Todo = () => {
             return;
         }        
         try {
-            const response = await axios.post(`http://localhost:4000/api/search`,
+            const response = await axios.post(`${backendUrl}/search`,
                 { query },
                 { headers: { 'Content-Type': 'application/json' } }
 
