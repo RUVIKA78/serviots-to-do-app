@@ -13,7 +13,7 @@ const Todo = () => {
     const [editedTodo, setEditedTodo] = useState('');
     const [query, setQuery] = useState('');
 
-    const backendUrl=import.meta.env.VITE_BACKEND_URL
+    const backendUrl=import.meta.env.VITE_BASE_URL
     
     
 
